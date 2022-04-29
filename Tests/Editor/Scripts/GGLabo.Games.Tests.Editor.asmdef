@@ -1,0 +1,21 @@
+{
+    "name": "GGLabo.Games.Tests.Editor",
+    "rootNamespace": "GGLabo.Games.Tests.Editor",
+    "references": [
+        "GGLabo.Games.Editor",
+        "GGLabo.Games.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

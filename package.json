@@ -1,0 +1,13 @@
+{
+  "name": "net.gglabo.games",
+  "version": "0.0.1",
+  "displayName": "GGLabo Games",
+  "unity": "2022.1",
+  "unityRelease": "0b14",
+  "keywords": [],
+  "author": {
+    "name": "GGLabo",
+    "email": "gglabo.official@gmail.com",
+    "url": "https://gglabo.net"
+  }
+}

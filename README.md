@@ -1,1 +1,1 @@
-# net.gglabo.games
+# GGLabo Games
