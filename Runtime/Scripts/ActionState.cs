@@ -2,44 +2,65 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// public class ActionStateExample : MonoBehaviour {
-//     static readonly int FIRST_STATE = 0;
-//     static readonly int SECOND_STATE = 1;
-//     ActionState state = new ActionState();
-//     void Awake() {
-//         state
-//             .Define(FIRST_STATE, FirstState)
-//             .Define(SECOND_STATE, SecondState);
-//             .Next(FIRST_STATE);
-//     }
-//     void OnDestroy() {
-//         state.Destroy();
-//     }
-//     void Update() {
-//         state.Update();
-//     }
-//     void FirstState(ActionState state) {
-//         if (state.count == 1) {
-//             Debug.LogFormat("FirstState");
-//         }
-//         if (state.time < 1.0f) { return; }
-//         state.Change(SECOND_STATE);
-//     }
-//     void SecondState(ActionState state) {
-//         if (state.count == 1) {
-//             Debug.LogFormat("SecondState");
-//         }
-//         if (state.time < 1.0f) { return; }
-//         state.Change(FIRST_STATE);
-//     }
-// }
 
 namespace GGLabo.Games.Runtime
 {
+    /// <code>
+    /// public class ActionStateExample : MonoBehaviour
+    /// {
+    ///     private const int FirstStateId = 0;
+    ///     private const int SecondStateId = 1;
+    ///     ActionState state = new ActionState();
+    ///     void Awake()
+    ///     {
+    ///         state
+    ///             .Define(FirstStateId, FirstState)
+    ///             .Define(SecondStateId, SecondState);
+    ///             .Next(FirstStateId);
+    ///     }
+    ///     void OnDestroy()
+    ///     {
+    ///         state.Destroy();
+    ///     }
+    ///     void Update()
+    ///     {
+    ///         state.Update();
+    ///     }
+    ///     void FirstState(ActionState state)
+    ///     {
+    ///         if (state.Count == 1)
+    ///         {
+    ///             Debug.LogFormat("FirstState");
+    ///         }
+    ///         if (state.Time &gt; 1.0f)
+    ///         {
+    ///             return;
+    ///         }
+    ///         state.Change(SecondStateId);
+    ///     }
+    ///     void SecondState(ActionState state) {
+    ///         if (state.Count == 1)
+    ///         {
+    ///             Debug.LogFormat("SecondState");
+    ///         }
+    ///         if (state.Time &gt; 1.0f)
+    ///         {
+    ///             return;
+    ///         }
+    ///         state.Next(FirstStateId);
+    ///     }
+    /// }
+    /// </code>
     public class ActionState
     {
         #region Define
 
+        /// <summary>
+        /// Define state.
+        /// </summary>
+        /// <param name="stateId">State id to define.</param>
+        /// <param name="stateAction">State action to define.</param>
+        /// <returns>Defined state.</returns>
         // ReSharper disable once MemberCanBePrivate.Global
         public ActionState Define(int stateId, Action<ActionState> stateAction)
         {
@@ -47,6 +68,13 @@ namespace GGLabo.Games.Runtime
             return this;
         }
 
+        /// <summary>
+        /// Define state.
+        /// </summary>
+        /// <param name="stateId">State id to define.</param>
+        /// <param name="stateAction">State action to define.</param>
+        /// <typeparam name="T1">First argument type to define.</typeparam>
+        /// <returns>Defined state.</returns>
         // ReSharper disable once MemberCanBePrivate.Global
         public ActionState Define<T1>(int stateId, Action<ActionState, T1> stateAction)
         {
@@ -54,6 +82,14 @@ namespace GGLabo.Games.Runtime
             return this;
         }
 
+        /// <summary>
+        /// Define state.
+        /// </summary>
+        /// <param name="stateId">State id to define.</param>
+        /// <param name="stateAction">State action to define.</param>
+        /// <typeparam name="T1">First argument type to define.</typeparam>
+        /// <typeparam name="T2">Second argument type to define.</typeparam>
+        /// <returns>Defined state.</returns>
         public ActionState Define<T1, T2>(int stateId, Action<ActionState, T1, T2> stateAction)
         {
             AddState(new ActionStateDefinition<T1, T2>() { stateId = stateId, stateAction = stateAction });
@@ -64,18 +100,36 @@ namespace GGLabo.Games.Runtime
 
         #region Change
 
+        /// <summary>
+        /// Change state in current update.
+        /// </summary>
+        /// <param name="stateId">State id to change.</param>
         // ReSharper disable once MemberCanBePrivate.Global
         public void Change(int stateId)
         {
             ChangeSessionState(ActionStateRunner.Rent(this, GetState(stateId)));
         }
 
+        /// <summary>
+        /// Change state in current update.
+        /// </summary>
+        /// <param name="stateId">State id to change.</param>
+        /// <param name="arg1">First argument value to change.</param>
+        /// <typeparam name="T1">First argument type to change.</typeparam>
         // ReSharper disable once MemberCanBePrivate.Global
         public void Change<T1>(int stateId, T1 arg1)
         {
             ChangeSessionState(ActionStateRunner<T1>.Rent(this, GetState(stateId), arg1));
         }
 
+        /// <summary>
+        /// Change state in current update.
+        /// </summary>
+        /// <param name="stateId">State id to change.</param>
+        /// <param name="arg1">First argument value to change.</param>
+        /// <param name="arg2">Second argument value to change.</param>
+        /// <typeparam name="T1">First argument type to change.</typeparam>
+        /// <typeparam name="T2">Second argument type to change.</typeparam>
         // ReSharper disable once MemberCanBePrivate.Global
         public void Change<T1, T2>(int stateId, T1 arg1, T2 arg2)
         {
@@ -86,18 +140,36 @@ namespace GGLabo.Games.Runtime
 
         #region Next
 
+        /// <summary>
+        /// Next state.
+        /// Change state in next update.
+        /// </summary>
+        /// <param name="stateId">State id to next.</param>
         // ReSharper disable once MemberCanBePrivate.Global
         public void Next(int stateId)
         {
             NextSessionState(ActionStateRunner.Rent(this, GetState(stateId)));
         }
 
+        /// <summary>
+        /// Next state.
+        /// Change Next state in next update.
+        /// </summary>
+        /// <param name="stateId">State id to next.</param>
+        /// <param name="arg1">First argument value to next.</param>
         // ReSharper disable once MemberCanBePrivate.Global
         public void Next<T1>(int stateId, T1 arg1)
         {
             NextSessionState(ActionStateRunner<T1>.Rent(this, GetState(stateId), arg1));
         }
 
+        /// <summary>
+        /// Next state.
+        /// Change state in next update.
+        /// </summary>
+        /// <param name="stateId">State id to next.</param>
+        /// <param name="arg1">First argument value to next.</param>
+        /// <param name="arg2">Second argument value to next.</param>
         // ReSharper disable once MemberCanBePrivate.Global
         public void Next<T1, T2>(int stateId, T1 arg1, T2 arg2)
         {
@@ -108,6 +180,9 @@ namespace GGLabo.Games.Runtime
 
         #region Stop
 
+        /// <summary>
+        /// Stop state.
+        /// </summary>
         public void Stop()
         {
             StopSessionState();
@@ -117,6 +192,9 @@ namespace GGLabo.Games.Runtime
 
         #region Update
 
+        /// <summary>
+        /// Update state.
+        /// </summary>
         public void Update()
         {
             UpdateSession();
@@ -126,57 +204,12 @@ namespace GGLabo.Games.Runtime
 
         #region Destroy
 
+        /// <summary>
+        /// Destroy state.
+        /// </summary>
         public void Destroy()
         {
             DestroySession();
-        }
-
-        #endregion
-
-        #region Entry
-
-        private const int EntryState = -1000;
-
-        public void Entry(int stateId)
-        {
-            CheckSessionEntryable();
-            Next(stateId);
-        }
-
-        public void Entry<T1>(int stateId, T1 arg1)
-        {
-            CheckSessionEntryable();
-            Next(stateId, arg1);
-        }
-
-        public void Entry<T1, T2>(int stateId, T1 arg1, T2 arg2)
-        {
-            CheckSessionEntryable();
-            Next(stateId, arg1, arg2);
-        }
-
-        public ActionState Entry(Action<ActionState> stateAction)
-        {
-            CheckSessionEntryable();
-            Define(EntryState, stateAction);
-            Change(EntryState);
-            return this;
-        }
-
-        public ActionState Entry<T1>(Action<ActionState> stateAction, T1 arg1)
-        {
-            CheckSessionEntryable();
-            Define(EntryState, stateAction);
-            Change(EntryState, arg1);
-            return this;
-        }
-
-        public ActionState Entry<T1, T2>(Action<ActionState> stateAction, T1 arg1, T2 arg2)
-        {
-            CheckSessionEntryable();
-            Define(EntryState, stateAction);
-            Change(EntryState, arg1, arg2);
-            return this;
         }
 
         #endregion
@@ -427,17 +460,6 @@ namespace GGLabo.Games.Runtime
                 var onDestroy = _stateSession.onDestroy;
                 _stateSession.onDestroy = null;
                 onDestroy();
-            }
-        }
-
-        private void CheckSessionEntryable()
-        {
-            if (Current != -1)
-            {
-                const string error = "Session was already entryed."
-                                     + " Do not call Change(), Next() or Entry()"
-                                     + " before start of state.";
-                throw new Exception(error);
             }
         }
 
