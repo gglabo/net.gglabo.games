@@ -32,7 +32,7 @@ namespace GGLabo.Games.Runtime
     ///         {
     ///             Debug.LogFormat("FirstState");
     ///         }
-    ///         if (state.Time &gt; 1.0f)
+    ///         if (state.Time &lt; 1.0f)
     ///         {
     ///             return;
     ///         }
@@ -43,7 +43,7 @@ namespace GGLabo.Games.Runtime
     ///         {
     ///             Debug.LogFormat("SecondState");
     ///         }
-    ///         if (state.Time &gt; 1.0f)
+    ///         if (state.Time &lt; 1.0f)
     ///         {
     ///             return;
     ///         }
