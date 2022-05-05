@@ -293,7 +293,7 @@ namespace GGLabo.Games.Runtime
         // ReSharper disable once MemberCanBePrivate.Global
         public StateDefinition FindState(int stateId)
         {
-            for (int i = 0, l = _stateList.Count - 1; i < l; i++)
+            for (int i = 0, l = _stateList.Count; i < l; i++)
             {
                 var foundState = _stateList[i];
                 if (foundState.stateId == stateId)
