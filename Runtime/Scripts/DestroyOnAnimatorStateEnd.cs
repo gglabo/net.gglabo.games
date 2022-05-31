@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace GGLabo.Games.Runtime
 {
-    public class DestroyOnAnimationEnd : MonoBehaviour
+    public class DestroyOnAnimatorStateEnd : MonoBehaviour
     {
         public Animator animator;
 
