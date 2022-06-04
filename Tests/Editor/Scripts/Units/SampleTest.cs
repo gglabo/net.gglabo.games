@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace GGLabo.Games.Tests.Editor
+namespace GGLabo.Games.Tests.Editor.Units
 {
     public class SampleTest
     {

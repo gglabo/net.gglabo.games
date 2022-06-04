@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
-namespace GGLabo.Games.Tests.Runtime.Extensions
+namespace GGLabo.Games.Tests.Runtime.Units.Extensions
 {
     public class UnityEngineObjectExtensionTest
     {

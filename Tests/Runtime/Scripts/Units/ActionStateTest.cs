@@ -1,7 +1,7 @@
 ﻿using GGLabo.Games.Runtime;
 using NUnit.Framework;
 
-namespace GGLabo.Games.Tests.Runtime
+namespace GGLabo.Games.Tests.Runtime.Units
 {
     public class ActionStateTest
     {
